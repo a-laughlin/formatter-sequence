@@ -20,6 +20,7 @@ export async function activate(context: ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   const logger = window.createOutputChannel(EXTENSION_NAME);
   logger.appendLine(`Registering "${EXTENSION_ID}" extension`);
+
   const format = async (
     document: TextDocument,
     formatCommand:'editor.action.formatSelection'|'editor.action.formatDocument'
@@ -63,8 +64,6 @@ export async function activate(context: ExtensionContext) {
 
     // reset defaultFormatter back to "alaughlin.formatter-sequence"
     await config.update("editor.defaultFormatter", EXTENSION_ID, configurationTarget, isLanguageSpecific);
-    // logger.appendLine(`document.isDirty: ${document.isDirty} | wasSaved: ${wasSaved}`);
-    // logger.appendLine(`document.isDirty: ${document.isDirty} | wasSaved: ${wasSaved}`);
     if(document.isDirty && wasSaved) {
       await commands.executeCommand('workbench.action.files.saveWithoutFormatting');
     }
@@ -73,6 +72,7 @@ export async function activate(context: ExtensionContext) {
 
   context.subscriptions.push(
     window.onDidChangeActiveTextEditor((editor) => {
+      // no editor means nothing to format
       if (!editor) { return; }
       logInvalidConfiguration(editor.document, logger);
     }),
