@@ -8,6 +8,8 @@
     // "formatter-sequence": ["esbenp.prettier-vscode"],
     // "editor.defaultFormatter": "alaughlin.formatter-sequence",
     "[typescript]": {
+      // "editor.defaultFormatter": "esbenp.prettier-vscode",
+      // "editor.defaultFormatter": "vscode.typescript-language-features",
       "editor.defaultFormatter": "alaughlin.formatter-sequence",
       "editor.formatOnSave": true,
       "formatter-sequence": [

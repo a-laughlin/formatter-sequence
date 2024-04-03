@@ -46,25 +46,25 @@ export async function activate(context: ExtensionContext) {
       /* typeof globalValue === string|undefined */       [ConfigurationTarget.Global, false]
     );
 
-    // get the language specific formatter-sequence
-    const formatters = workspace
-      .getConfiguration(undefined,{languageId:document.languageId})
-      .get<string[]>(EXTENSION_NAME,[]);
+    const formatters = config.get<string[]>(EXTENSION_NAME,[]);
 
-    // When multiple formatters make changes, only the first formatter's changes are saved, leaving the file dirty. We can detect the intent to save by checking if the document is saved after the first change.  If only one formatter runs, it saves correctly. If 2+ run, the second loop iteration will catch whether it saved on the first run.
+    // When multiple formatters make changes, only the first formatter's changes are saved, leaving the file dirty. We can detect the intent to save by checking if the document is saved after the first change.  If only one formatter runs, it saves correctly. If 2+ run, the second loop iteration will catch whether it saved on the first run.  There is also a race condition where the isDirty state isn't updated immediately after formatting, so this is a bit hacky, but it seems to work in all cases.
     logger.appendLine(`running ${EXTENSION_NAME} [${formatters.join(', ')}]`);
     let wasSaved = false;
-
+    let wasDirty = false;
     for (const formatter of formatters) {
       await config.update("editor.defaultFormatter", formatter, configurationTarget, isLanguageSpecific);
       // wasSaved needs to be set after updating defaultFormatter because updating it causes enough of a delay for document.isDirty to update.
-      wasSaved ||= !document.isDirty;
+      wasSaved ||= wasDirty && !document.isDirty;
       await commands.executeCommand(formatCommand);
+      await setTimeout(()=>{},0); // wait for document.isDirty to update
+      wasDirty ||= document.isDirty;
     };
 
     // reset defaultFormatter back to "alaughlin.formatter-sequence"
     await config.update("editor.defaultFormatter", EXTENSION_ID, configurationTarget, isLanguageSpecific);
-
+    // logger.appendLine(`document.isDirty: ${document.isDirty} | wasSaved: ${wasSaved}`);
+    // logger.appendLine(`document.isDirty: ${document.isDirty} | wasSaved: ${wasSaved}`);
     if(document.isDirty && wasSaved) {
       await commands.executeCommand('workbench.action.files.saveWithoutFormatting');
     }
