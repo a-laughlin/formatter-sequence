@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    // "formatter-sequence": ["esbenp.prettier-vscode"],
+    // "editor.defaultFormatter": "alaughlin.formatter-sequence",
+    "[typescript]": {
+      "editor.defaultFormatter": "alaughlin.formatter-sequence",
+      "editor.formatOnSave": true,
+      "formatter-sequence": [
+        "vscode.typescript-language-features",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
