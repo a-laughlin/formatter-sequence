@@ -1,6 +1,6 @@
 # formatter-sequence README
 
-VSCode normally only supports a single code formatter, leading to conflicts when running multiple formatters like eslint and prettier.  This extension enables running them in a consistent sequence for simpler configuration.
+VSCode only supports a single code formatter, leading to conflicts when running multiple formatters like eslint and prettier. This extension enables running multiple formatters sequentially for simpler configuration and predictability.
 
 ## Requirements
 
