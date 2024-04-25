@@ -40,3 +40,7 @@ Initial release
 ### 0.0.2
 
 Resolved "This setting cannot be applied because it is not registered as language override setting."
+
+### 0.0.3
+
+Updated this README with changes

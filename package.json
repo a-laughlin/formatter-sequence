@@ -3,7 +3,7 @@
   "displayName": "formatter-sequence",
   "publisher": "alaughlin",
   "description": "runs formatters in sequence",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": "https://github.com/a-laughlin/formatter-sequence",
   "engines": {
     "vscode": "^1.87.0"
