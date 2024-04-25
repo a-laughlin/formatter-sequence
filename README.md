@@ -36,3 +36,7 @@ If you have any issues, first check the extension output for any configuration i
 ### 0.0.1
 
 Initial release
+
+### 0.0.2
+
+Resolved "This setting cannot be applied because it is not registered as language override setting."
