@@ -3,7 +3,7 @@
   "displayName": "formatter-sequence",
   "publisher": "alaughlin",
   "description": "runs formatters in sequence",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": "https://github.com/a-laughlin/formatter-sequence",
   "engines": {
     "vscode": "^1.87.0"
@@ -21,6 +21,7 @@
         "title": "formatter-sequence",
         "properties": {
           "formatter-sequence": {
+            "scope": "language-overridable",
             "type": "array",
             "default": [],
             "description": "Array of formatter names. See valid formatters in autocomplete for settings > editor.defaultFormatter."
